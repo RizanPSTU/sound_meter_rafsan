@@ -16,6 +16,7 @@ class SoundMeterPlugin : FlutterPlugin, MethodCallHandler {
     /// when the Flutter Engine is detached from the Activity
     private lateinit var channel: MethodChannel
 
+
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "sound_meter")
         channel.setMethodCallHandler(this)
@@ -23,7 +24,6 @@ class SoundMeterPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         if (call.method == "hasMicrophonePermission") {
-
             result.success(hasMicrophonePermission())
         } else {
             result.notImplemented()
@@ -34,7 +34,11 @@ class SoundMeterPlugin : FlutterPlugin, MethodCallHandler {
         channel.setMethodCallHandler(null)
     }
 
-    private fun hasMicrophonePermission() {
-      
+    private fun hasMicrophonePermission() : Boolean {
+        val microphonePermissionState = rememberPermissionState(
+                android.Manifest.permission.RECORD_AUDIO
+        )
+
+//        if(microphonePermissionState.)
     }
 }
